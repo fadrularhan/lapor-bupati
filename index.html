@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lapor Bupati Aceh Barat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&family=Fraunces:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-inner">
+    <div class="nav-brand">
+      <div class="nav-emblem">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9,22 9,12 15,12 15,22"/>
+        </svg>
+      </div>
+      <div>
+        <div class="brand-name">Lapor Bupati</div>
+        <div class="brand-sub">Kabupaten Aceh Barat</div>
+      </div>
+    </div>
+    <a href="dashboard.html" class="nav-link">Dashboard Admin →</a>
+  </div>
+</nav>
+
+<main class="main-wrap">
+  <div class="hero">
+    <div class="hero-tag">Pengaduan Masyarakat</div>
+    <h1 class="hero-title">Suara Anda <em>Penting</em><br>untuk Aceh Barat</h1>
+    <p class="hero-desc">Sampaikan laporan, keluhan, atau aspirasi Anda langsung kepada Bupati. Setiap laporan ditindaklanjuti dengan serius.</p>
+  </div>
+
+  <div class="form-card" id="form-section">
+    <div class="form-steps">
+      <div class="step active" id="step1-tab">
+        <span class="step-num">1</span> Data Diri
+      </div>
+      <div class="step-line"></div>
+      <div class="step" id="step2-tab">
+        <span class="step-num">2</span> Isi Laporan
+      </div>
+    </div>
+
+    <form id="laporan-form" novalidate>
+      <div class="form-step" id="step1">
+        <div class="field-row">
+          <div class="field-group">
+            <label class="field-label">Nama Lengkap <span class="req">*</span></label>
+            <input type="text" class="field-input" id="nama" placeholder="Nama sesuai KTP" required>
+            <span class="field-err" id="err-nama"></span>
+          </div>
+          <div class="field-group">
+            <label class="field-label">No. HP / WhatsApp <span class="req">*</span></label>
+            <input type="tel" class="field-input" id="hp" placeholder="08xxxxxxxxxx" required>
+            <span class="field-err" id="err-hp"></span>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field-group">
+            <label class="field-label">Kecamatan <span class="req">*</span></label>
+            <select class="field-input" id="kecamatan" required>
+              <option value="">-- Pilih Kecamatan --</option>
+              <option>Johan Pahlawan</option>
+              <option>Kaway XVI</option>
+              <option>Meulaboh</option>
+              <option>Arongan Lambalek</option>
+              <option>Bubon</option>
+              <option>Meureubo</option>
+              <option>Pante Ceureumen</option>
+              <option>Panton Reu</option>
+              <option>Pasie Raya</option>
+              <option>Samatiga</option>
+              <option>Sungai Mas</option>
+              <option>Woyla</option>
+              <option>Woyla Barat</option>
+              <option>Woyla Timur</option>
+            </select>
+            <span class="field-err" id="err-kec"></span>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Desa / Kelurahan</label>
+            <input type="text" class="field-input" id="desa" placeholder="Nama desa/kelurahan">
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Email (opsional)</label>
+          <input type="email" class="field-input" id="email" placeholder="email@contoh.com">
+        </div>
+        <div class="btn-row">
+          <button type="button" class="btn-next" onclick="goStep2()">Lanjut →</button>
+        </div>
+      </div>
+
+      <div class="form-step hidden" id="step2">
+        <div class="field-row">
+          <div class="field-group">
+            <label class="field-label">Kategori Laporan <span class="req">*</span></label>
+            <select class="field-input" id="kategori" required>
+              <option value="">-- Pilih Kategori --</option>
+              <option>Infrastruktur &amp; Jalan</option>
+              <option>Pelayanan Publik</option>
+              <option>Kesehatan</option>
+              <option>Pendidikan</option>
+              <option>Keamanan &amp; Ketertiban</option>
+              <option>Lingkungan Hidup</option>
+              <option>Sosial &amp; Ekonomi</option>
+              <option>Lainnya</option>
+            </select>
+            <span class="field-err" id="err-kat"></span>
+          </div>
+          <div class="field-group">
+            <label class="field-label">OPD / Instansi Terkait</label>
+            <select class="field-input" id="opd">
+              <option value="">-- Pilih OPD (opsional) --</option>
+              <option>Dinas Kesehatan</option>
+              <option>Dinas Pendidikan</option>
+              <option>Dinas PUPR</option>
+              <option>Dinas Sosial</option>
+              <option>Dinas Perhubungan</option>
+              <option>Dinas Lingkungan Hidup</option>
+              <option>Badan Perencanaan (Bappeda)</option>
+              <option>Satpol PP</option>
+              <option>Lainnya</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Judul / Topik Laporan <span class="req">*</span></label>
+          <input type="text" class="field-input" id="judul" placeholder="Ringkasan singkat permasalahan Anda" required>
+          <span class="field-err" id="err-judul"></span>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Isi Laporan <span class="req">*</span></label>
+          <textarea class="field-input field-textarea" id="isi" placeholder="Jelaskan permasalahan secara detail: lokasi kejadian, waktu, dampak yang dirasakan, dan apa yang diharapkan..." required></textarea>
+          <span class="field-err" id="err-isi"></span>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Alamat / Lokasi Spesifik</label>
+          <input type="text" class="field-input" id="lokasi" placeholder="Nama jalan, RT/RW, atau patokan lokasi">
+        </div>
+        <div class="btn-row" style="justify-content: space-between;">
+          <button type="button" class="btn-back" onclick="goStep1()">← Kembali</button>
+          <button type="submit" class="btn-submit" id="btn-submit">Kirim Laporan</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="success-card hidden" id="success-section">
+    <div class="success-icon">✓</div>
+    <h2 class="success-title">Laporan Berhasil Dikirim!</h2>
+    <p class="success-desc">Nomor referensi laporan Anda:</p>
+    <div class="ref-badge" id="ref-number">LP-000</div>
+    <p class="success-note">Simpan nomor referensi ini untuk memantau status laporan Anda. Tim kami akan segera menindaklanjuti.</p>
+    <button class="btn-next" onclick="resetForm()" style="margin-top:1.5rem;">Buat Laporan Baru</button>
+  </div>
+
+  <div class="info-row">
+    <div class="info-card">
+      <div class="info-icon">📋</div>
+      <div class="info-text">
+        <strong>Laporan Tercatat</strong>
+        <span>Setiap laporan disimpan dan mendapat nomor referensi</span>
+      </div>
+    </div>
+    <div class="info-card">
+      <div class="info-icon">⚡</div>
+      <div class="info-text">
+        <strong>Respon Cepat</strong>
+        <span>OPD terkait ditugaskan menangani dalam 3 hari kerja</span>
+      </div>
+    </div>
+    <div class="info-card">
+      <div class="info-icon">🔒</div>
+      <div class="info-text">
+        <strong>Data Terlindungi</strong>
+        <span>Identitas pelapor dijaga kerahasiaannya</span>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>© 2025 Pemerintah Kabupaten Aceh Barat &nbsp;·&nbsp; Sistem Lapor Bupati</p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
