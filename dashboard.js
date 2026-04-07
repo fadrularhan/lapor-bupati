@@ -64,8 +64,7 @@ function renderTable(rows) {
     <tr>
       <td style="font-weight:600;color:#1a4a6b">${r.id}</td>
       <td style="color:#888;white-space:nowrap">${formatTanggal(r.tanggal)}</td>
-      <td>${r.nama}</td>
-      <td title="${r.judul}">${r.judul}</td>
+      <td>${r.nama || 'Anonim'}</td>
       <td>${r.kecamatan}</td>
       <td>${r.kategori}</td>
       <td>${r.opd || '-'}</td>
@@ -87,10 +86,9 @@ function openModal(id) {
   activeId = id;
 
   document.getElementById('m-ref').textContent = r.id;
-  document.getElementById('m-nama').textContent = r.nama;
+  document.getElementById('m-nama').textContent = r.nama || 'Anonim';
   document.getElementById('m-hp').textContent = r.hp;
   document.getElementById('m-kec').textContent = r.kecamatan;
-  document.getElementById('m-desa').textContent = r.desa || '-';
   document.getElementById('m-kat').textContent = r.kategori;
   document.getElementById('m-opd').textContent = r.opd || '-';
   document.getElementById('m-lokasi').textContent = r.lokasi || '-';
@@ -131,7 +129,7 @@ function updateStats(all) {
 // ============================================================
 // CHARTS
 // ============================================================
-let chartKat, chartStatus, chartKec;
+let chartBulan, chartKat, chartStatus, chartKec;
 
 function countBy(arr, key) {
   return arr.reduce((acc, r) => {
@@ -141,6 +139,44 @@ function countBy(arr, key) {
 }
 
 function renderCharts(all) {
+  // --- Chart per Bulan (6 bulan terakhir) ---
+  const bulanNames = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+  const now = new Date();
+  const bulanLabels = [], bulanVals = [];
+  for (let i = 5; i >= 0; i--) {
+    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+    bulanLabels.push(bulanNames[d.getMonth()] + " '" + d.getFullYear().toString().slice(2));
+    bulanVals.push(all.filter(r => {
+      const rd = new Date(r.tanggal);
+      return rd.getMonth() === d.getMonth() && rd.getFullYear() === d.getFullYear();
+    }).length);
+  }
+  if (chartBulan) chartBulan.destroy();
+  chartBulan = new Chart(document.getElementById('c-bulan'), {
+    type: 'bar',
+    data: {
+      labels: bulanLabels,
+      datasets: [{
+        label: 'Total Laporan',
+        data: bulanVals,
+        backgroundColor: '#1a4a6b',
+        borderRadius: 6,
+        borderSkipped: false,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: ctx => ' ' + ctx.parsed.y + ' laporan' } }
+      },
+      scales: {
+        x: { grid: { display: false }, ticks: { font: { size: 11 } } },
+        y: { grid: { color: '#f0ece5' }, ticks: { font: { size: 11 }, stepSize: 1, precision: 0 }, beginAtZero: true }
+      }
+    }
+  });
+
   const katCount = countBy(all, 'kategori');
   const katLabels = Object.keys(katCount);
   const katVals = Object.values(katCount);

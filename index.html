@@ -50,9 +50,8 @@
       <div class="form-step" id="step1">
         <div class="field-row">
           <div class="field-group">
-            <label class="field-label">Nama Lengkap <span class="req">*</span></label>
-            <input type="text" class="field-input" id="nama" placeholder="Nama sesuai KTP" required>
-            <span class="field-err" id="err-nama"></span>
+            <label class="field-label">Nama Lengkap <span style="color:#aaa;font-weight:400">(opsional)</span></label>
+            <input type="text" class="field-input" id="nama" placeholder="Nama Anda (boleh dikosongkan)">
           </div>
           <div class="field-group">
             <label class="field-label">No. HP / WhatsApp <span class="req">*</span></label>
@@ -60,36 +59,26 @@
             <span class="field-err" id="err-hp"></span>
           </div>
         </div>
-        <div class="field-row">
-          <div class="field-group">
-            <label class="field-label">Kecamatan <span class="req">*</span></label>
-            <select class="field-input" id="kecamatan" required>
-              <option value="">-- Pilih Kecamatan --</option>
-              <option>Johan Pahlawan</option>
-              <option>Kaway XVI</option>
-              <option>Meulaboh</option>
-              <option>Arongan Lambalek</option>
-              <option>Bubon</option>
-              <option>Meureubo</option>
-              <option>Pante Ceureumen</option>
-              <option>Panton Reu</option>
-              <option>Pasie Raya</option>
-              <option>Samatiga</option>
-              <option>Sungai Mas</option>
-              <option>Woyla</option>
-              <option>Woyla Barat</option>
-              <option>Woyla Timur</option>
-            </select>
-            <span class="field-err" id="err-kec"></span>
-          </div>
-          <div class="field-group">
-            <label class="field-label">Desa / Kelurahan</label>
-            <input type="text" class="field-input" id="desa" placeholder="Nama desa/kelurahan">
-          </div>
-        </div>
         <div class="field-group">
-          <label class="field-label">Email (opsional)</label>
-          <input type="email" class="field-input" id="email" placeholder="email@contoh.com">
+          <label class="field-label">Kecamatan <span class="req">*</span></label>
+          <select class="field-input" id="kecamatan" required>
+            <option value="">-- Pilih Kecamatan --</option>
+            <option>Johan Pahlawan</option>
+            <option>Kaway XVI</option>
+            <option>Meulaboh</option>
+            <option>Arongan Lambalek</option>
+            <option>Bubon</option>
+            <option>Meureubo</option>
+            <option>Pante Ceureumen</option>
+            <option>Panton Reu</option>
+            <option>Pasie Raya</option>
+            <option>Samatiga</option>
+            <option>Sungai Mas</option>
+            <option>Woyla</option>
+            <option>Woyla Barat</option>
+            <option>Woyla Timur</option>
+          </select>
+          <span class="field-err" id="err-kec"></span>
         </div>
         <div class="btn-row">
           <button type="button" class="btn-next" onclick="goStep2()">Lanjut →</button>
@@ -128,11 +117,6 @@
               <option>Lainnya</option>
             </select>
           </div>
-        </div>
-        <div class="field-group">
-          <label class="field-label">Judul / Topik Laporan <span class="req">*</span></label>
-          <input type="text" class="field-input" id="judul" placeholder="Ringkasan singkat permasalahan Anda" required>
-          <span class="field-err" id="err-judul"></span>
         </div>
         <div class="field-group">
           <label class="field-label">Isi Laporan <span class="req">*</span></label>

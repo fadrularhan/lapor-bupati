@@ -33,19 +33,11 @@ if (document.getElementById('laporan-form')) {
   function goStep2() {
     let ok = true;
 
-    const nama = document.getElementById('nama').value.trim();
     const hp = document.getElementById('hp').value.trim();
     const kec = document.getElementById('kecamatan').value;
 
-    document.getElementById('err-nama').textContent = '';
     document.getElementById('err-hp').textContent = '';
     document.getElementById('err-kec').textContent = '';
-
-    if (!nama) {
-      document.getElementById('err-nama').textContent = 'Nama wajib diisi';
-      document.getElementById('nama').classList.add('error');
-      ok = false;
-    } else { document.getElementById('nama').classList.remove('error'); }
 
     if (!hp || !/^08\d{8,12}$/.test(hp.replace(/\s/g, ''))) {
       document.getElementById('err-hp').textContent = 'Format HP tidak valid (contoh: 08123456789)';
@@ -80,19 +72,13 @@ if (document.getElementById('laporan-form')) {
     let ok = true;
 
     const kat = document.getElementById('kategori').value;
-    const judul = document.getElementById('judul').value.trim();
     const isi = document.getElementById('isi').value.trim();
 
     document.getElementById('err-kat').textContent = '';
-    document.getElementById('err-judul').textContent = '';
     document.getElementById('err-isi').textContent = '';
 
     if (!kat) {
       document.getElementById('err-kat').textContent = 'Pilih kategori laporan';
-      ok = false;
-    }
-    if (!judul) {
-      document.getElementById('err-judul').textContent = 'Judul laporan wajib diisi';
       ok = false;
     }
     if (isi.length < 20) {
@@ -109,14 +95,11 @@ if (document.getElementById('laporan-form')) {
     const newLaporan = {
       id,
       tanggal: new Date().toISOString(),
-      nama: document.getElementById('nama').value.trim(),
+      nama: document.getElementById('nama').value.trim() || 'Anonim',
       hp: document.getElementById('hp').value.trim(),
-      email: document.getElementById('email').value.trim(),
       kecamatan: document.getElementById('kecamatan').value,
-      desa: document.getElementById('desa').value.trim(),
       kategori: kat,
       opd: document.getElementById('opd').value || '-',
-      judul,
       isi,
       lokasi: document.getElementById('lokasi').value.trim(),
       status: 'Pending',
