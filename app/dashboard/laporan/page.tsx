@@ -262,19 +262,19 @@ export default function LaporanPage() {
       const ws  = wb.Sheets[wb.SheetNames[0]];
       const rows = XLSX.utils.sheet_to_json<Record<string,string>>(ws);
 
-      const toInsert: LaporanInsert[] = rows.map((row) => ({
+      const toInsert = rows.map((row) => ({
         nomor_ref:    row["No. Ref"] || row["nomor_ref"] || generateNomorRef(),
-        nama_pelapor: row["Nama Pelapor"] || row["nama_pelapor"] || null,
+        nama_pelapor: row["Nama Pelapor"] || row["nama_pelapor"] || undefined,
         no_hp:        String(row["No. HP"] || row["no_hp"] || "-"),
         kecamatan:    row["Kecamatan"] || row["kecamatan"] || "-",
         kategori:     row["Kategori"]  || row["kategori"]  || "Lainnya",
         isi_laporan:  row["Isi Laporan"] || row["isi_laporan"] || "-",
-        lokasi:       row["Lokasi"] || row["lokasi"] || null,
+        lokasi:       row["Lokasi"] || row["lokasi"] || undefined,
         status:       (row["Status"]?.toLowerCase() === "selesai" ? "selesai"
                      : row["Status"]?.toLowerCase().includes("proses") ? "proses"
                      : row["Status"]?.toLowerCase() === "ditolak" ? "ditolak"
                      : "pending") as StatusLaporan,
-        catatan_admin: row["Catatan Admin"] || row["catatan_admin"] || null,
+        catatan_admin: row["Catatan Admin"] || row["catatan_admin"] || undefined,
       }));
 
       // Insert batch
