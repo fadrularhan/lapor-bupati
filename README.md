@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Lapor Bupati – Aceh Barat
 
 Sistem pengaduan masyarakat berbasis web untuk Kabupaten Aceh Barat.
@@ -138,3 +139,6 @@ lapor-bupati/
 ├── .env.local.example        # Template env
 └── README.md
 ```
+=======
+# laporbupati
+>>>>>>> d2c99d056b204a4b94e80ae25f1f124366f632e2

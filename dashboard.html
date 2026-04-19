@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Admin – Lapor Bupati Aceh Barat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&family=Fraunces:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body class="dash-body">
+
+<nav class="navbar">
+  <div class="nav-inner">
+    <div class="nav-brand">
+      <div class="nav-emblem">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9,22 9,12 15,12 15,22"/>
+        </svg>
+      </div>
+      <div>
+        <div class="brand-name">Dashboard Admin</div>
+        <div class="brand-sub">Lapor Bupati Aceh Barat</div>
+      </div>
+    </div>
+    <a href="index.html" class="nav-link">← Form Laporan</a>
+  </div>
+</nav>
+
+<div class="dash-wrap">
+
+  <div class="dash-header">
+    <h1 class="dash-title">Ringkasan Laporan</h1>
+    <div class="dash-date" id="dash-date"></div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card stat-total">
+      <div class="stat-label">Total Laporan</div>
+      <div class="stat-val" id="s-total">0</div>
+    </div>
+    <div class="stat-card stat-pending">
+      <div class="stat-label">Belum Diproses</div>
+      <div class="stat-val" id="s-pending">0</div>
+    </div>
+    <div class="stat-card stat-proses">
+      <div class="stat-label">Sedang Diproses</div>
+      <div class="stat-val" id="s-proses">0</div>
+    </div>
+    <div class="stat-card stat-selesai">
+      <div class="stat-label">Selesai</div>
+      <div class="stat-val" id="s-selesai">0</div>
+    </div>
+  </div>
+
+  <div class="chart-row">
+    <div class="chart-card chart-card-wide">
+      <div class="chart-title">Laporan Masuk per Bulan</div>
+      <div style="position:relative;height:220px"><canvas id="c-bulan"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Laporan per Kategori</div>
+      <div style="position:relative;height:220px"><canvas id="c-kat"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Status Laporan</div>
+      <div style="position:relative;height:220px"><canvas id="c-status"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Per Kecamatan</div>
+      <div style="position:relative;height:220px"><canvas id="c-kec"></canvas></div>
+    </div>
+  </div>
+
+  <div class="table-card">
+    <div class="table-top">
+      <div class="table-title">Daftar Laporan</div>
+      <div class="table-filters">
+        <select class="fil-sel" id="fil-status" onchange="applyFilter()">
+          <option value="">Semua Status</option>
+          <option value="Pending">Pending</option>
+          <option value="Proses">Proses</option>
+          <option value="Selesai">Selesai</option>
+        </select>
+        <select class="fil-sel" id="fil-kec" onchange="applyFilter()">
+          <option value="">Semua Kecamatan</option>
+          <option>Johan Pahlawan</option>
+          <option>Kaway XVI</option>
+          <option>Meulaboh</option>
+          <option>Arongan Lambalek</option>
+          <option>Bubon</option>
+          <option>Meureubo</option>
+          <option>Pante Ceureumen</option>
+          <option>Panton Reu</option>
+          <option>Pasie Raya</option>
+          <option>Samatiga</option>
+          <option>Sungai Mas</option>
+          <option>Woyla</option>
+          <option>Woyla Barat</option>
+          <option>Woyla Timur</option>
+        </select>
+        <select class="fil-sel" id="fil-kat" onchange="applyFilter()">
+          <option value="">Semua Kategori</option>
+          <option>Infrastruktur &amp; Jalan</option>
+          <option>Pelayanan Publik</option>
+          <option>Kesehatan</option>
+          <option>Pendidikan</option>
+          <option>Keamanan &amp; Ketertiban</option>
+          <option>Lingkungan Hidup</option>
+          <option>Sosial &amp; Ekonomi</option>
+          <option>Lainnya</option>
+        </select>
+        <button class="btn-export" onclick="exportCSV()">↓ Export CSV</button>
+      </div>
+    </div>
+    <div class="table-scroll">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>No. Ref</th>
+            <th>Tanggal</th>
+            <th>Nama</th>
+            <th>Kecamatan</th>
+            <th>Kategori</th>
+            <th>OPD</th>
+            <th>Status</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+    <div class="table-foot" id="table-info">Memuat data...</div>
+  </div>
+
+</div>
+
+<div class="modal-overlay hidden" id="modal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <span class="modal-ref" id="m-ref"></span>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-row"><span class="modal-lbl">Nama</span><span id="m-nama"></span></div>
+      <div class="modal-row"><span class="modal-lbl">No. HP</span><span id="m-hp"></span></div>
+      <div class="modal-row"><span class="modal-lbl">Kecamatan</span><span id="m-kec"></span></div>
+      <div class="modal-row"><span class="modal-lbl">Kategori</span><span id="m-kat"></span></div>
+      <div class="modal-row"><span class="modal-lbl">OPD</span><span id="m-opd"></span></div>
+      <div class="modal-row"><span class="modal-lbl">Lokasi</span><span id="m-lokasi"></span></div>
+      <div class="modal-row" style="align-items:flex-start"><span class="modal-lbl">Isi Laporan</span><span id="m-isi" style="white-space:pre-wrap;line-height:1.6"></span></div>
+    </div>
+    <div class="modal-footer">
+      <label class="modal-lbl" style="font-size:12px">Ubah Status:</label>
+      <select class="fil-sel" id="m-status-sel">
+        <option value="Pending">Pending</option>
+        <option value="Proses">Proses</option>
+        <option value="Selesai">Selesai</option>
+      </select>
+      <button class="btn-next" onclick="updateStatus()" style="padding:8px 18px;font-size:13px">Simpan</button>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+<script src="dashboard.js"></script>
+</body>
+</html>
